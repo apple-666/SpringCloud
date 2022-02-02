@@ -1,0 +1,13 @@
+server:
+  port: 80
+
+
+#服务别名----注册zookeeper到注册中心名称
+spring:
+  application:
+    name: cloud-consumerzk-order
+  cloud:
+    zookeeper:
+      #      华为云 外网
+      connect-string: 122.112.149.204:2181
+

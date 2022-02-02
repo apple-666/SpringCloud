@@ -1,0 +1,31 @@
+package com.apple.springcloud.service.impl;
+
+import com.apple.springcloud.dao.PaymentDao;
+import com.apple.springcloud.entities.Payment;
+import com.apple.springcloud.service.PaymentService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * @auther zzyy
+ * @create 2020-02-18 10:40
+ */
+//默认别名 为类名 方便注入
+@Service
+public class PaymentServiceImpl implements PaymentService
+{
+    //依赖注入
+    @Resource
+    private PaymentDao paymentDao;
+
+    public int create(Payment payment)
+    {
+        return paymentDao.create(payment);
+    }
+
+    public Payment getPaymentById(Long id)
+    {
+        return paymentDao.getPaymentById(id);
+    }
+}

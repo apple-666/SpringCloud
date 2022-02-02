@@ -1,0 +1,45 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启从注册中心动态创建路由的功能，利用为服务名进行路由。
+      routes:   # 可以为controller中的所有rest接口加路由
+        - id: payment_routh           # 路由id：payment_route，没有固定规则，建议配合服务名
+          #uri: http://localhost:8001  # 匹配的地址
+          uri: lb://CLOUD-PAYMENT-SERVICE  # lb://开头代表从注册中心中获取服务，后面接的就是你需要转发到的服务名称
+          predicates:
+            - Path=/payment/get/**    # 断言：路径相匹配的进行路由  此模块不用加controller
+#            - After=2022-01-30T17:19:05.172+08:00[Asia/Shanghai] #在这个时间之后，路由请求才有效
+#            - Before=2022-01-30T17:19:05.172+08:00[Asia/Shanghai] #在这个时间之前，路由请求才有效
+#            - Cookie=apple,come #两个参数:Cookie name+正则表达式。只有发送的请求有cookie，apple=come这个数据才能访问
+
+        - id: payment_routh2
+          #uri: http://localhost:8001
+          uri: lb://CLOUD-PAYMENT-SERVICE  # lb://开头代表从注册中心中获取服务，后面接的就是你需要转发到的服务名称
+          predicates:
+            - Path=/payment/lb/**
+
+        ## 访问 9527/applebili  可以跳转到b站
+        - id: baidu_routh
+          uri:  http://www.bilibili.com
+          predicates:
+            - Path=/applebili
+
+
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+    prefer-ip-address: true
+    instance-id: cloud-gateway9527
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-register: true
+      defaultZone: http://eureka7001.com:7001/eureka

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--    控制mybatis全局行为-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--    设置别名  package的包下面的 所有包装类 都会有对应的 别名（就是 变成了首字母小写的类名-->
+    <typeAliases>
+        <package name="com.apple.springcloud.entities"/>
+    </typeAliases>
+
+    <!--mapper.xml类所在的路径-->
+    <mappers>
+        <package name="com.apple.dao"/>
+    </mappers>
+</configuration>
